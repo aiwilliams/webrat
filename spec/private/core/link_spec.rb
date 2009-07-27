@@ -21,4 +21,11 @@ describe Webrat::Link do
     link.click
   end
 
+  it "should respect unknown protocols" do
+    url = "webcal://www.example.com/path"
+    webrat_session.should_receive(:request_page).with(url, :get, {})
+    link = Webrat::Link.new(webrat_session, {"href" => url})
+    link.click
+  end
+
 end
